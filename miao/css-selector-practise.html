@@ -33,41 +33,26 @@
       color: blue;
     }
 
-    p+a {
-      color: orange;
-    }
-
-    div>a:nth-child(3) {
-      color: orange;
-    }
-
-    div>a:nth-child(4) {
+    .a.c+div a:link {
       color: pink;
     }
 
-    div>a:nth-child(5) {
+    .a.c+div a:visited {
+      color: orange;
+    }
+
+    .a.c+div a[href^="mailto"i] {
       color: blue;
     }
 
-    div>a:nth-child(6) {
-      color: blue;
-    }
-
-    div>a:nth-child(7) {
+    .a.c+div a[href^="Tel"i] {
       color: yellow;
     }
 
-    div>a:nth-child(8) {
-      color: yellow;
-    }
-
-    div>a:nth-child(9) {
+    .a.c+div a[href$="pdf"i] {
       font-size: 30px;
     }
 
-    div>a:nth-child(10) {
-      font-size: 30px;
-    }
 
     div.a li:nth-child(4) {
       color: red;
