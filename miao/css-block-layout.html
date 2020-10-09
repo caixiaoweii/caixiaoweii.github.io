@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    section {
+      background-color: black;
+      min-width: 600px;
+
+    }
+
+    section>p {
+      color: white;
+      margin: auto;
+      width: 600px;
+    }
+
+    section+div {
+      margin-top: 15px;
+
+    }
+
+    section+div>p {
+      width: 600px;
+      margin: auto;
+    }
+
+    .a {
+      list-style: none;
+      padding: 0;
+      width: 600px;
+      margin: auto;
+
+    }
+
+    .a li {
+      border: 3px solid black;
+      width: 174px;
+      height: 34px;
+      background-color: pink;
+      margin-top: 15px;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    .a li:nth-child(n+5) {
+      margin-left: 210px;
+    }
+
+    .a li:nth-child(n+9) {
+      margin-left: 420px;
+    }
+
+    .a li:nth-child(4n) {
+      margin-bottom: -220px;
+    }
+
+    .b {
+      list-style: none;
+      padding: 0;
+      width: 600px;
+      margin: auto;
+      margin-top: 30px;
+    }
+
+    .b li {
+      border: 1px dotted black;
+      border-left: none;
+      border-top: none;
+      border-right: none;
+    }
+
+    .b li:last-child {
+      border-bottom: none;
+    }
+
+    .footer {
+      margin-top: 22px;
+      background-color: violet;
+    }
+
+    .footer>p {
+      width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .c {
+      font-size: 0;
+      width: 600px;
+      margin: auto;
+      margin-top: 215px;
+    }
+
+    span {
+      background-color: pink;
+      font-size: 16px;
+      text-align: center;
+      line-height: 30px;
+      overflow: hidden;
+      display: inline-block;
+      border: 3px solid black;
+      width: 174px;
+      height: 34px;
+      margin-top: 30px;
+    }
+
+    span:nth-child(2) {
+      margin-left: 30px;
+    }
+
+    span:nth-child(5) {
+      margin-left: 30px;
+    }
+
+    span:nth-child(8) {
+      margin-left: 30px;
+    }
+
+    span:nth-child(11) {
+      margin-left: 30px;
+    }
+
+    span:nth-child(3n) {
+      margin-left: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <p>
+      hello world 请调整浏览器窗口大小查看效果
+    </p>
+  </section>
+  <div>
+    <p>页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体
+      宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px 页面主体 宽度600px
+      页面主体 宽度600px</p>
+  </div>
+  <ul class="a">
+    <li>
+      宽180高40(包含边框)
+    </li>
+    <li>水平间隙30px</li>
+    <li>垂直间隙15px</li>
+    <li>边框宽度3px</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+    <li>产品</li>
+  </ul>
+  <div class="c">
+    <span>宽180高40(包含边框)</span>
+    <span>产品</span>
+    <span>产品</span>
+    <span>水平间隙30px</span>
+    <span>产品</span>
+    <span>产品</span>
+    <span>垂直间隙15px</span>
+    <span>产品</span>
+    <span>产品</span>
+    <span>边框宽度3px</span>
+    <span>产品</span>
+    <span>产品</span>
+
+
+  </div>
+
+  <ul class="b">
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+    <li>link</li>
+  </ul>
+  <div class="footer">
+    <p>©版权所有</p>
+    <p>本页所有布局均使用块元素</p>
+  </div>
+
+
+</body>
+
+</html>
