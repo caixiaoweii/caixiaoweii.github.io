@@ -1,0 +1,33 @@
+.icon{
+  border: 1px solid red;
+  background-image: url(OIP.jpg);
+  background-repeat: no-repeat;
+}
+.icon-redbird {
+  width: 77px;
+  height: 77px;
+  background-position:-95px -104px;
+}
+.icon-blackbird {
+  width: 52px;
+  height: 62px;
+  background-position:-255px -100px;
+}
+.icon-bigmouth{
+  width: 71px;
+  height: 75px;
+  background-position:-170px -233px;
+
+}
+.icon-orangebird{
+  width: 55px;
+  height: 68px;
+  background-position:-310px -90px;
+
+}
+.icon-bluebird{
+  width: 54px;
+  height: 54px;
+  background-position:-366px -239px;
+
+}
