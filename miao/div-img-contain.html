@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #demo1 {
+      border: 1px solid red;
+      width: 300px;
+      height: 300px;
+      object-fit: contain;
+    }
+
+    .picture {
+      position: relative;
+      border: 1px solid red;
+      width: 300px;
+      height: 300px;
+
+    }
+
+    #demo2 {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: calc(100% - 100px)
+    }
+
+    .bgpicture {
+      border: 1px solid red;
+      width: 300px;
+      height: 300px;
+      background-repeat: no-repeat;
+      background-image: url(https://tse1-mm.cn.bing.net/th/id/OIP.qaOTbxJyBP2QoeG-THQSbQAAAA?w=135&h=198&c=7&o=5&dpr=1.25&pid=1.7);
+      background-position: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div><img src="https://tse3-mm.cn.bing.net/th/id/OIP.X8mCngwLI2luIATbPl7egwHaFc?w=253&h=186&c=7&o=5&dpr=1.25&pid=1.7"
+      alt="" id="demo1"></div>
+  <div class="picture"><img
+      src="https://tse2-mm.cn.bing.net/th/id/OIP.IY9ru1Bd3oFq7oEa1vE_bQHaDL?w=329&h=150&c=7&o=5&dpr=1.25&pid=1.7" alt=""
+      id="demo2"></div>
+  <div class="bgpicture"></div>
+</body>
+
+</html>

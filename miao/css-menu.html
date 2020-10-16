@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul ul {
+      position: absolute;
+      list-style: none;
+      display: none;
+      margin: 0;
+      padding: 0;
+      left: 0;
+      top: 100%;
+    }
+
+    ul ul ul {
+      top: 0;
+      left: 100%;
+    }
+
+
+
+    li:hover>ul {
+      display: block;
+    }
+
+
+
+    .nav {
+      background-color: gray;
+      width: 100%;
+    }
+
+    .top {
+      display: block;
+      width: 800px;
+      margin: auto;
+    }
+
+    li {
+      position: relative;
+      font-size: 20px;
+      padding: 2px 8px;
+      margin-right: 30px;
+      display: inline-block;
+      white-space: nowrap;
+      background-color: gray;
+    }
+
+    li li {
+      display: block;
+    }
+
+    ul ul li {
+      width: 90px;
+      height: 50px;
+    }
+
+    li:hover {
+      background-color: chartreuse;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <ul class="top">
+      <li>家用电器
+        <ul>
+          <li>电视
+            <ul>
+              <li>超薄电视</li>
+              <li>全屏电视</li>
+            </ul>
+          </li>
+          <li>空调</li>
+          <li>洗衣机</li>
+          <li>冰箱</li>
+          <li>厨房小电
+            <ul>
+              <li>电饭锅</li>
+              <li>电磁炉</li>
+              <li>刀具</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>男鞋/运动/户外
+        <ul>
+          <li>流行</li>
+          <li>运动鞋包</li>
+          <li>户外装备
+            <ul>
+              <li>背包</li>
+              <li>望远镜</li>
+              <li>烧烤用具</li>
+            </ul>
+
+          </li>
+        </ul>
+      </li>
+      <li>房产/汽车/汽车用品
+        <ul>
+          <li>房产</li>
+          <li>汽车车型</li>
+          <li>维修保养</li>
+          <li>汽车装饰</li>
+          <li>美容清洗</li>
+        </ul>
+      </li>
+      <li>工业品
+        <ul>
+          <li>工具</li>
+          <li>化学品</li>
+          <li>劳动防护</li>
+        </ul>
+      </li>
+      <li>电脑/办公
+        <ul>
+          <li>文具</li>
+          <li>耗材</li>
+          <li>电脑整机</li>
+          <li>电脑配件</li>
+          <li>外设产品</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
