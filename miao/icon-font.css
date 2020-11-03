@@ -1,0 +1,101 @@
+@font-face{
+  font-family: "Fontawesome" ;
+  src: url("fontawesome-webfont.woff2") format("woff");
+}
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 16px;
+  text-rendering: auto;
+}
+.fa-glass:before {
+  content: "\f000";
+}
+.fa-music:before {
+  content: "\f001";
+}
+.fa-search:before {
+  content: "\f002";
+}
+.fa-envelope-o:before {
+  content: "\f003";
+}
+.fa-heart:before {
+  content: "\f004";
+}
+.fa-star:before {
+  content: "\f005";
+}
+.fa-star-o:before {
+  content: "\f006";
+}
+.fa-user:before {
+  content: "\f007";
+}
+.fa-film:before {
+  content: "\f008";
+}
+.fa-th-large:before {
+  content: "\f009";
+}
+.fa-th:before {
+  content: "\f00a";
+}
+.fa-th-list:before {
+  content: "\f00b";
+}
+.fa-check:before {
+  content: "\f00c"
+}
+  .fa-2x{
+ font-size: 32px;
+  }
+  .fa-3x{
+  font-size: 48px;
+   }
+.fa-4x{
+   font-size: 64px;
+       }
+.fa-5x{
+     font-size: 80px;
+      }
+.fa-fw{
+  width: 20px;
+  text-align: center;
+}
+a{
+  display: block;
+  text-decoration: none;
+  color: rgb(85, 85, 85);
+}
+a:hover{
+  background-color: rgb(245, 245, 245);
+}
+.fa-ul{
+  list-style: none;
+  padding-left: 0;
+  margin-left: 20px;
+}
+.fa-ul>li{
+  position: relative;
+}
+.fa-li{
+  position: absolute;
+  left: -20px;
+  top: 3px;
+}
+.fa-rotate-90{
+  transform: rotate(90deg);
+}
+.fa-rotate-180{
+  transform: rotate(180deg);
+}
+.fa-rotate-270{
+  transform: rotate(270deg);
+}
+.fa-flip-horizontal{
+  transform: scale(1,-1);
+}
+.fa-flip-vertical{
+  transform: scale(-1,1);
+}

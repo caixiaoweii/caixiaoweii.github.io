@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    @keyframes square {
+      0% {
+        transform: rotatey(-50deg)rotatex(-50deg);
+      }
+
+      100% {
+        transform: rotatey(80deg)rotatex(80deg);
+      }
+    }
+
+
+    section {
+      transform-style: preserve-3d;
+      width: 200px;
+      height: 200px;
+      position: relative;
+      transform: rotatey(-50deg)rotatex(-50deg);
+      margin: 100px;
+      animation-name: square;
+      animation-duration: 5s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    div {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      opacity: 90%
+    }
+
+    .top {
+      background-color: red;
+      transform: rotatex(90deg)translatez(100px);
+    }
+
+    .bottom {
+      background-color: black;
+      transform: rotatex(-90deg)translatez(100px);
+    }
+
+    .left {
+      background-color: pink;
+      transform: rotatey(-90deg)translatez(100px);
+    }
+
+    .right {
+      background-color: lime;
+      transform: rotatey(90deg)translatez(100px);
+    }
+
+    .before {
+      background-color: grey;
+      transform: translatez(100px);
+    }
+
+    .after {
+      background-color: orange;
+      transform: translatez(-100px);
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <div class="top"></div>
+    <div class="bottom"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="before"></div>
+    <div class="after"></div>
+  </section>
+</body>
+
+</html>
