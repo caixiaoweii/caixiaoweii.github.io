@@ -246,8 +246,12 @@
     console.log("3 7")
   } else if (x % 5 == 0 && x % 7 == 0) {
     console.log("5 7")
-  } else if (x % 3 == 0 || x % 5 == 0 || x % 7 == 0) {
-    console.log(x)
+  } else if (x % 3 == 0) {
+    console.log(3)
+  } else if (x % 5 == 0) {
+    console.log(5)
+  } else if (x % 7 == 0) {
+    console.log(7)
   } else {
     console.log("n")
   }
@@ -347,8 +351,27 @@
   }
 </script>
 
-<script type="norun" id="ch0104/19">
+<script xtype="norun" id="ch0104/19">
+  var x = Number(prompt())
+  var y = Number(prompt())
+  var o = prompt()
 
+  if (y == 0) {
+    console.log('Devided by zero!')
+  } else if (o == '+') {
+    console.log(x + y)
+  }
+  else if (o == '-') {
+    console.log(x - y)
+  }
+  else if (o == '*') {
+    console.log(x * y)
+  }
+  else if (o == '/') {
+    console.log(x / y)
+  } else {
+    console.log('Invalid operator!')
+  }
 
 </script>
 
