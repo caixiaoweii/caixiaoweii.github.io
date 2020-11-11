@@ -280,6 +280,7 @@
   var x = Number(prompt())
   var t1 = x / 1.2
   var t2 = x / 3 + 50
+
   if (t1 > t2) {
     console.log("Bike")
   } else if (t1 < t2) {
@@ -291,22 +292,20 @@
 
 <script type="norun" id="ch0104/13">
   var N = Number(prompt())
-  if (0 <= N && N < 5) {
+  if (N < 5) {
     var fN = -N + 2.5
-    console.log(fN.toFixed(3))
-  } else if (5 <= N && N < 10) {
+  } else if (N < 10) {
     var fN = 2 - 1.5 * (N - 3) * (N - 3)
-    console.log(fN.toFixed(3))
-  } else if (10 <= N && N < 20) {
+  } else if (N < 20) {
     var fN = N / 2 - 1.5
-    console.log(fN.toFixed(3))
   }
+  console.log(fN.toFixed(3))
 </script>
 
-<script xtype="norun" id="ch0104/14">
+<script type="norun" id="ch0104/14">
   var k = Number(prompt())
   var o = prompt()
-  var x = (k - 1000) / 500 * 4
+  var x = Math.ceil((k - 1000) / 500) * 4
 
   if (k <= 1000 && o == 'n') {
     console.log(8)
@@ -324,11 +323,11 @@
   var x = Number(prompt())
   var y = Number(prompt())
   var z = Number(prompt())
-  if (x > y && x > z) {
+  if (x >= y && x >= z) {
     console.log(x)
-  } else if (y > x && y > z) {
+  } else if (y >= x && y >= z) {
     console.log(y)
-  } else if (z > x && z > y) {
+  } else if (z >= x && z >= y) {
     console.log(z)
   }
 </script>
@@ -337,7 +336,7 @@
   var x = Number(prompt())
   var y = Number(prompt())
   var z = Number(prompt())
-  if (x + y > z) {
+  if (x + y > z && x + z > y && y + z > x) {
     console.log("yes")
   } else {
     console.log("no")
@@ -356,7 +355,8 @@
 <script type="norun" id="ch0104/18">
   var x = Number(prompt())
   var y = Number(prompt())
-  if ((0 < x && x <= 1 && 0 < y && y <= 1) || (0 < x && x <= 1 && 0 > y && y >= -1) || (0 > x && x >= -1 && 0 < y && y <= 1) || (0 > x && x >= -1 && 0 > y && y >= -1)) {
+
+  if (x >= -1 && x <= 1 && y >= -1 && y <= 1) {
     console.log("yes")
   } else {
     console.log("no")
@@ -387,7 +387,38 @@
 
 </script>
 
-<script type="norun" id="ch0104/20">
+<script xtype="norun" id="ch0104/20">
+  var a = Number(prompt())
+  var b = Number(prompt())
+  var c = Number(prompt())
+  var delta = b * b - 4 * a * c
+
+  if (delta == 0) {
+    var x = -b / (2 * a)
+    console.log('x1=x2=' + x)
+  } else if (delta > 0) {
+    var x1 = (-b + Math.sqrt(delta)) / (2 * a)
+    var x2 = (-b - Math.sqrt(delta)) / (2 * a)
+    console.log('x1=' + x1 + ';x2' + x2)
+  } else {
+    var x1r = - b / (2 * a)
+    var x1i = Math.sqrt(-delta) / (2 * a)
+    var x2r = - b / (2 * a)
+    var x2i = -Math.sqrt(-delta) / (2 * a)
+
+    if (x1i < 0) {
+      var x1 = '' + x1r + x1i + 'i'
+    } else {
+      var x1 = x1r + '+' + x1i + 'i'
+    }
+    if (x2i < 0) {
+      var x2 = '' + x2r + x2i + 'i'
+    } else {
+      var x2 = x2r + '+' + x2i + 'i'
+    }
+    console.log('x1=' + x1 + ';x2=' + x2)
+  }
+
 
 
 </script>
