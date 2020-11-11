@@ -303,8 +303,20 @@
   }
 </script>
 
-<script type="norun" id="ch0104/14">
+<script xtype="norun" id="ch0104/14">
+  var k = Number(prompt())
+  var o = prompt()
+  var x = (k - 1000) / 500 * 4
 
+  if (k <= 1000 && o == 'n') {
+    console.log(8)
+  } else if (k <= 1000 && o == 'y') {
+    console.log(13)
+  } else if (k > 1000 && o == 'n') {
+    console.log(8 + x)
+  } else if (k > 1000 && o == 'y') {
+    console.log(13 + x)
+  }
 
 </script>
 
@@ -351,7 +363,7 @@
   }
 </script>
 
-<script xtype="norun" id="ch0104/19">
+<script type="norun" id="ch0104/19">
   var x = Number(prompt())
   var y = Number(prompt())
   var o = prompt()
