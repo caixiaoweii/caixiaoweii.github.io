@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画图</title>
+  <style>
+    canvas {
+      border: 2px solid #f0f;
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas width="400" height="300"></canvas>
+</body>
+<script>
+  var canvas = document.querySelector('canvas')
+  canvas.style.imageRendering = 'pixelated'
+  var ctx = canvas.getContext('2d')
+
+  function dot(x, y, color = 'black') {
+    x = x | 0
+    y = y | 0
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, 1, 1)
+  }
+
+  function line(x1, y1, x2, y2) {
+    ctx.strokeStyle = 'black'
+    ctx.moveTo(x1, y1)
+    ctx.lineTo(x2, y2)
+    ctx.stroke()
+  }
+  /**
+   * YOUR TASK
+画图的题：
+画一条实线
+画一条一个实点一个空点的虚线
+画一条两个实点两个空点的虚线
+画一条三个实点两个空点的虚线
+画一条45度的斜线
+画一条30度的斜线（选做）
+在四个角画分别画一条45度的斜线以让画面看起来像一个相框
+画一条跨越画布左上角和右下角的对角线
+画一个空心矩形
+画一个实心矩形
+画一个rgb色彩空间的某一面
+画一个空心的圆
+画一个实心的圆
+画一个大小合适的sin(x)的图像
+   */
+</script>
+<script>
+  //YOUR CODE GOES BELOW
+  //实线
+  for (x = 0; x < 400; x++) {
+    console.log(dot(x, 10, 'red'))
+
+  }
+  //一个实点一个空点的虚线
+  for (x = 0; x < 400; x += 2) {
+    console.log(dot(x, 20, 'red'))
+
+  }
+  //两个实点两个空点的虚线
+  for (x = 1; x < 400; x += 4) {
+    console.log(dot(x, 30, 'red'))
+  }
+  for (x = 2; x < 400; x += 4) {
+    console.log(dot(x, 30, 'red'))
+  }
+  //三个实点两个空点的虚线
+  for (x = 1; x < 400; x += 5) {
+    console.log(dot(x, 40, 'red'))
+  }
+
+  for (x = 2; x < 400; x += 5) {
+    console.log(dot(x, 40, 'red'))
+  }
+
+  for (x = 3; x < 400; x += 5) {
+    console.log(dot(x, 40, 'red'))
+  }
+
+  //30度的斜线
+  var x = 0
+  var y = 0
+  while (x < 400) {
+    x = x + 1
+    y = x / Math.sqrt(3)
+    console.log(dot(x, y, 'lime'))
+  }
+  //45度的斜线
+  for (var x = 0; x < 400; x++) {
+    dot(x, x, 'lime')
+  }
+  //空心矩形
+  for (x = 200; x < 300; x++) {
+    console.log(dot(x, 90, 'red'))
+  }
+  for (x = 200; x < 300; x++) {
+    console.log(dot(x, 150, 'red'))
+  }
+  for (y = 90; y < 150; y++) {
+    console.log(dot(200, y, 'red'))
+  }
+  for (y = 90; y <= 150; y++) {
+    console.log(dot(300, y, 'red'))
+  }
+
+  //对角线
+  var x = 0
+  var y = 0
+  var c = 0
+  while (c < 400) {
+    x = x + 1
+    y = x * 3 / 4
+    console.log(dot(x, y, 'lime'))
+    c = c + 1
+  }
+  // 实心矩形
+  for (x = 50; x < 150; x++) {
+    for (y = 100; y < 200; y++)
+      console.log(dot(x, y, 'red'))
+  }
+  //四个角斜线
+
+  var x = 0
+  var y = 50
+
+  for (var c = 0; c < 60; c++) {
+    x = x + 1
+    y = y - 1
+    console.log(dot(x, y, 'black'))
+
+  }
+
+
+
+  var x = 0
+  var y = 250
+
+  for (var c = 0; c < 60; c++) {
+    x++
+    y++
+    console.log(dot(x, y, 'black'))
+
+  }
+
+  var x = 400
+  var y = 50
+
+  for (var c = 0; c < 60; c++) {
+    x--
+    y--
+    console.log(dot(x, y, 'black'))
+
+  }
+  var x = 400
+  var y = 250
+
+  for (var c = 0; c < 60; c++) {
+    x--
+    y++
+    console.log(dot(x, y, 'black'))
+
+  }
+  //色彩空间
+  for (y = 0; y < 256; y++) {
+    for (x = 0; x < 256; x++) {
+      var color = 'rgb(255,' + x + ',' + y + ')'
+      dot(x, y, color)
+    }
+  }
+
+  //圆
+
+
+  //三角函数
+
+  for (var x = 0; x < 400; x++) {
+    y = 20 * Math.sin(x / 20)
+    dot(x, y + 100, 'black')
+  }
+
+</script>
+
+</html>
