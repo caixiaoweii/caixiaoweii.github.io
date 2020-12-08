@@ -8,7 +8,9 @@ var caixiaoweii = function () {
     }
     return result
   }
-  function chunk(ary, size = 1) {
+
+
+  function chunk(ary, size) {
     if (!ary || ary.length < 0) {
       return []
     }
@@ -17,7 +19,7 @@ var caixiaoweii = function () {
     while (true) {
       result.push(ary.slice(i, i + size));
       i += size;
-      if (i > ary.length) {
+      if (i >= ary.length) {
         break
       }
     }
@@ -25,13 +27,40 @@ var caixiaoweii = function () {
 
   }
 
+  function join(array, separator) {
+    separator = String(separator)
+    var result = ''
+    for (i = 0; i < array.length - 1; i++) {
+      result += array[i] + separator
+    }
+    return result + array[i]
+  }
 
+  function last(array) {
+    return array[array.length - 1]
+  }
+
+  function drop(array, n = 1) {
+    array.splice(0, n)
+    return array
+
+  }
+
+  function dropRight(array, n = 1) {
+    if (n > array.length) {
+      return []
+    } else {
+      return array.slice(0, array.length - n)
+    }
+  }
 
 
 
   return {
     compact,
     chunk,
+    join,
+    last,
   }
 
 }()
