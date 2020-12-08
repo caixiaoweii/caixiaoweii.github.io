@@ -1,0 +1,327 @@
+<meta charset="utf-8">
+<!-- <script>
+  var a = +prompt('请输入a')
+  var b = +prompt('请输入b')
+  var c = +prompt('请输入c')
+
+  var delta = b * b - 4 * a * c
+
+
+  if (delta > 0) {
+    var x1 = (-b + Math.sqrt(delta)) / (2 * a)
+    var x2 = (-b - Math.sqrt(delta)) / (2 * a)
+    console.log("x1 = " + x1)
+    console.log("x2 = " + x2)
+  } else if (delta == 0) {
+    var x = (-b) / (2 * a)
+    console.log(x)
+  } else {
+    console.log('无解')
+  } -->
+
+<!-- 
+</script> -->
+
+
+<!-- <script>
+  // 判断n是否为素数， 是的话返回true 不是返回false
+  var isPrime = function (n) {
+    var sqrt_n = Math.sqrt(n)
+    for (var i = 2; i <= sqrt_n; i++) {
+      if (n % i == 0) {
+        return false
+      }
+    }
+    return true
+  }
+</script>
+
+<script>
+  // 判断n是否为素数， 是的话返回true 不是返回false
+  var isPrime = function (n) {
+    var sqrt_n = Math.sqrt(n)
+    if (n == 2 || n == 3) {
+      return true
+    }
+    if (n % 6 != 1 && n % 6 != 5) {
+      return false
+    }
+    for (var i = 2; i <= sqrt_n; i++) {
+      if (n % i == 0) {
+        return false
+      }
+    }
+    return true
+  }
+
+</script> -->
+
+<script type="norun">
+  //返回数值n的十进制位宽
+  var dightwidth = function (n) {
+    var c = 0
+    do {
+      var digit = n % 10
+      c++
+      n = (n - digit) / 10
+    } while (n > 0)
+    return c
+  }
+</script>
+
+<script type="norun">
+  var fizzBuzz = function (n) {
+    for (var i = 1; i < n; i++) {
+      if (i % 3 == 0 && i % 5 == 0) {
+        console.log('fizz buzz')
+      } else if (i % 5 == 0) {
+        console.log('buzz')
+      } else if (i % 3 == 0) {
+        console.log('fizz')
+      } else {
+        console.log(i)
+      }
+    }
+  }
+
+</script>
+
+<script type="norun">
+  //sqrt: 求一个正数的平方根
+
+  //二分法
+  function sqrt(n) {
+    var l = 0
+    var r = n
+
+    while (r - l > 0.000001) {
+      var m = (l + r) / 2
+      if (m * m == n) {
+        return m
+      } else if (m * m < n) {
+        l = m
+      } else if (m * m > n) {
+        r = m
+      }
+    }
+    return (l + r) / 2
+  }
+
+  //牛顿迭代法
+  function sqrt(n) {
+    var x = n
+    while (Math.abs(x * x - n) > 0.00000000000001) {
+      x = (x + n / x) / 2
+    }
+    return x
+  }
+
+</script>
+
+<script type="norun">
+  //narcissistic: 写一个函数判断一个数是否为水仙花数
+  function narcissistic(n) {
+    var width = 0 //n的十进制位宽
+    var m = n
+    do {
+      var digit = m % 10
+      m = (m - digit) / 10
+      width++
+    } while (m > 0)
+
+    m = n
+    var sum = 0
+
+    do {
+      var digit = m % 10
+      var exp = 1
+      for (var i = 0; i < width; i++) {
+        exp *= digit
+      }
+      sum += exp
+      m = (m - digit) / 10
+    } while (m > 0)
+
+    if (sum == n) {
+      return true
+    } else {
+      return false 
+    }
+  }
+
+  //narcissistics: 输出10000以内的所有水仙花数
+  for (var i = 1; i < 10000; i++) {
+    if (narcissistic(i)) {
+      console.log(i)
+    }
+
+  }
+
+</script>
+
+
+<script type="norun">
+  //palindrom: 写函数求阶乘
+  var palindrom = function (n) {
+    var result = 1
+      for (i = 2; i <= n; i++) {
+        result *= i
+      }
+      return
+  
+
+</script>
+
+<script xtype="norun">
+  //weekday: 给写年和月，计算这个月的第一天是星期几
+  //3月就用3表示
+  //用0表示星期天
+
+  function weekday(year, month) {
+    let totalday = (year - 1) * 365 + Math.floor((year - 1) / 4) - Math.floor((year - 1) / 100) + Math.floor((year - 1) / 400)
+  }
+</script>
+
+<script type="norun">
+  //complete-number: 写一个函数求一个数是否为完全数（它的因子之和等于它自己）
+  var completenumber = function (n) {
+    var sum = 1
+    for (var i = 2; i < n; i++) {
+      if (n % i == 0) {
+        sum += i;
+      }
+    }
+    if (sum == n) {
+      return true
+    }
+    return false
+  }
+
+
+  //complete-numbers: 输出1000以内的所有完全数
+
+  for (var j = 0; j < 1000; j++) {
+    if (completenumber(j)) {
+      console.log(j)
+    }
+  }
+
+</script>
+
+<script type="norun">
+  //prime: 判断素数
+
+
+  var isPrime = function (n) {
+    var sqrt_n = Math.sqrt(n)
+   if (n < 2) return false
+    for (var i = 2; i <= sqrt_n; i++) {
+      if (n % i == 0) {
+        return false
+      }
+    }
+    return true
+  }
+  //primes: 输出1000以内的素数
+  for (var j = 0; j < 1000; j++){
+    if (isPrime(j)) {
+      console.log(j)
+    }
+  }
+
+</script>
+
+<script type="norun">
+  //itob: 不使用隐式类型转换将一个数字转换为字符串
+  function n2c(n) {
+    if (n == 0) {
+      return '0'
+    }
+    if (n == 1) {
+      return '1'
+    }
+    if (n == 2) {
+      return '2'
+    }
+    if (n == 3) {
+      return '3'
+    }
+    if (n == 4) {
+      return '4'
+    }
+    if (n == 5) {
+      return '5'
+    }
+    if (n == 6) {
+      return '6'
+    }
+    if (n == 7) {
+      return '7'
+    }
+    if (n == 8) {
+      return '8'
+    }
+    if (n == 9) {
+      return '9'
+    }
+  }
+  function itob(n) {
+    let result = ''
+    do {
+      let d = n % 10
+      result = n2c(d) + result
+      n = (n - d) / 10
+    } while (n > 0)
+    return result
+  }
+</script>
+
+<script type="norun">
+  //lcf: 写函数求出两个数的最大公约数
+  var lcf = function (a, b) {
+    var result = 1;
+    for (var i = 1; i <= a && i <= b; i++) {
+      if (a % i == 0 && b % i == 0) {
+        result = i;
+      }
+    }
+    return result;
+  }
+
+  //辗转相减法
+  function lcm(m, n) {
+    while (m != n) {
+      if (m < n) { //让m总是大于等于n
+        let t = m
+        m = n
+        n = t
+      }
+      m = m - n
+    }
+    return m
+  }
+  //辗转相除法
+  function lcm(m, n) {
+    while (m != 0) {
+      var x = n
+      n = m % n
+      m = x
+    }
+  }
+
+
+</script>
+
+<script type="norun">
+  //lcm: 写函数求出两个数的最小公倍数
+  var lcm = function (a, b) {
+    var result = 1;
+    for (var i = 1; i <= a && i <= b; i++) {
+      if (a % i == 0 && b % i == 0) {
+        result = i;
+      }
+    }
+    return a * b / result;
+  }
+
+</script>
