@@ -74,8 +74,14 @@ var caixiaoweii = function () {
 
 
   //返回第一个通过 predicate 判断为真值的元素的索引值（index），而不是元素本身。
-  function findindex(array, predicate, fromIndex = 0) {
-
+  function findIndex(array, predicate, fromIndex = 0) {
+    var iteratee = baseIteratee(predicate);
+    for (i = fromIndex; i < array.length; i++) {
+      if (iteratee(array[i])) {
+        return i
+      }
+      return -1
+    }
 
   }
   //减少一级array嵌套深度。
@@ -85,6 +91,14 @@ var caixiaoweii = function () {
 
   //将array递归为一维数组。
   function flattenDeep(array) {
+    return array.reduce((result, item) => {
+      return result.concat(Array.isArray(item) ? flattenDeep(item) : item);
+    }, []);
+
+  }
+
+  //根据 depth 递归减少 array 的嵌套层级
+  function flattenDepth(array, depth = 1) {
 
   }
 
@@ -129,17 +143,12 @@ var caixiaoweii = function () {
 
   //使用二进制的方式检索来决定 value值 应该插入到数组中 尽可能小的索引位置，以保证array的排序。
   function sortedIndex(array, value) {
-    if (array[0] > value) {
-      return 0
-    }
-    if (array[array.length - 1] < value) {
-      return array.length
-    }
     for (i = 0; i < array.length; i++) {
-      if (array[i] < value && array[i + 1] > value) {
-        return i + 1
+      if (array[i] >= value) {
+        return i
       }
     }
+    return array.length;
   }
 
   //计算 array 中的最大值。 如果 array 是 空的或者假值将会返回 undefined。
@@ -177,6 +186,117 @@ var caixiaoweii = function () {
   }
 
 
+  function fromPairs(pairs) {
+    var map = {}
+    for (let i = 0; i < pairs.length; ++i) {
+      map[pairs[i][0]] = pairs[i][1]
+    }
+    return map
+  }
+
+
+  // 区别是它是从右到左的迭代集合array中的元素。
+  function findLastIndex(array, predicate, fromIndex) {
+    var iteratee = baseIteratee(predicate);
+    for (i = fromIndex; i >= 0; i--) {
+      if (iteratee(array[i])) {
+        return i
+      }
+      return -1
+    }
+
+  }
+
+  //转换 value 为一个数组。
+  function toArray(value) {
+    if (typeof value == 'string') {
+      return value.split('')
+    }
+    let res = []
+    if (typeof value == 'object') {
+      for (let i in value) {
+        res.push(value[i])
+      }
+    }
+    return res
+  }
+
+  function filter(ary, predicate) {
+    var iteratee = baseIteratee(predicate);
+    var result = []
+    for (i = 0; i < ary.length; i++) {
+      if (iteratee(ary[i])) {
+        result.push(ary[i])
+      }
+    }
+    return result
+  }
+
+
+  function find(ary, predicate, fromIndex = 0) {
+    var iteratee = baseIteratee(predicate);
+    for (var i = 0; i < fromIndex; i++) {
+      if (iteratee(ary[i], i, ary)) {
+        return ary[i]
+      }
+    }
+  }
+
+  function every(ary, predicate) {
+    var iteratee = baseIteratee(predicate);
+    for (i = 0; i < ary.length; i++) {
+      if (!iteratee(ary[i], i, ary)) {
+        return false
+      }
+
+    }
+    return true
+  }
+
+  function some(ary, predicate) {
+    var iteratee = baseIteratee(predicate);
+    for (i = 0; i < ary.length; i++) {
+      if (iteratee(ary[i], i, ary)) {
+        return true
+      }
+
+    }
+    return false
+  }
+
+  function maxBy(array, iteratee) {
+    var iteratee = baseIteratee(iteratee);
+    var max = 0
+    for (let i = 1; i < array.length; i++) {
+      if (iteratee(array[max]) < iteratee(array[i])) {
+        max = i
+      }
+    }
+    return array[max]
+  }
+
+  function minBy(array, iteratee) {
+    var iteratee = baseIteratee(iteratee);
+    var min = 0
+    for (let i = 1; i < array.length; i++) {
+      if (iteratee(array[min]) > iteratee(array[i])) {
+        min = i
+      }
+    }
+    return array[min]
+  }
+
+  function sumBy(array, iteratee) {
+    var iteratee = baseIteratee(iteratee);
+    var sum = 0
+    for (let i = 0; i < array.length; i++) {
+      sum += iteratee(array[i])
+    }
+    return sum
+  }
+
+
+
   return {
     compact,
     chunk,
@@ -194,6 +314,18 @@ var caixiaoweii = function () {
     max,
     min,
     sum,
+    fromPairs,
+    findIndex,
+    findLastIndex,
+    flattenDeep,
+    toArray,
+    filter,
+    find,
+    every,
+    some,
+    maxBy,
+    minBy,
+    sumBy,
 
 
 
