@@ -36,6 +36,68 @@ var caixiaoweii = function () {
     return result + array[i]
   }
 
+  function isShallowEqual(a, b) {
+    if (a === b) return true;
+
+    if (a == null || typeof a != "object" ||
+      b == null || typeof b != "object")
+      return false;
+
+    var propsInA = 0,
+      propsInB = 0;
+
+    for (var prop in b)
+      propsInB += 1;
+
+    for (var prop in a) {
+      propsInA += 1;
+      if (!(prop in b) || !isEqual(a[prop], b[prop]))
+        return false;
+    }
+
+    return propsInA <= propsInB;
+  }
+
+  function isEqual(a, b) {
+    if (a === b)
+      return true
+    if (a == null || typeof a != "object" || b == null || typeof b != "object")
+      return false
+    var propsInA = 0,
+      propsInB = 0
+    for (var prop in a) {
+      propsInA += 1
+    }
+    for (var prop in b) {
+      propsInB += 1
+      if (!(prop in a) || !isEqual(a[prop], b[prop]))
+        return false
+    }
+    return propsInA == propsInB
+  }
+
+  function baseIteratee(iteratee) {
+    if (iteratee === null) {
+      return val => val;
+    }
+    if (typeof iteratee === "string") {
+      return val => val[iteratee];
+    }
+    if (typeof iteratee === "function") {
+      return iteratee;
+    }
+    if (iteratee instanceof Array) {
+      return function (obj) {
+        return obj[iteratee[0]] === iteratee[1];
+      }
+    } else if (typeof iteratee === "object") {
+      if (Object.prototype.toString.call(iteratee) === "[object RegExp]")
+        return val => iteratee.test(val);
+      else
+        return isShallowEqual.bind(null, iteratee);
+    }
+  }
+
   function last(array) {//获取array中的最后一个元素。
     return array[array.length - 1]
   }
@@ -86,7 +148,17 @@ var caixiaoweii = function () {
   }
   //减少一级array嵌套深度。
   function flatten(array) {
-
+    var result = []
+    for (i = 0; i < array.length; i++) {
+      if (typeof (array[i]) == 'number') {
+        result.push(array[i])
+      } else {
+        for (j = 0; j < array[i].length; j++) {
+          result.push(array[i][j])
+        }
+      }
+    }
+    return result
   }
 
   //将array递归为一维数组。
@@ -326,6 +398,9 @@ var caixiaoweii = function () {
     maxBy,
     minBy,
     sumBy,
+    isEqual,
+    flatten,
+
 
 
 
