@@ -171,7 +171,19 @@ var caixiaoweii = function () {
 
   //根据 depth 递归减少 array 的嵌套层级
   function flattenDepth(array, depth = 1) {
+    if (depth == 0) {
+      return array.slice()
+    }
 
+    var result = []
+    for (var i = 0; i < array.length; i++) {
+      if (Array.isArray(array[i])) {
+        result.push(...flattenDepth(array[i], depth - 1))
+      } else {
+        result.push(array[i])
+      }
+    }
+    return result
   }
 
 
@@ -274,9 +286,9 @@ var caixiaoweii = function () {
       if (iteratee(array[i])) {
         return i
       }
-      return -1
-    }
 
+    }
+    return -1
   }
 
   //转换 value 为一个数组。
@@ -295,10 +307,11 @@ var caixiaoweii = function () {
 
   function filter(ary, predicate) {
     var iteratee = baseIteratee(predicate);
-    var result = []
+    var result = undefined
     for (i = 0; i < ary.length; i++) {
-      if (iteratee(ary[i])) {
-        result.push(ary[i])
+      if (iteratee(ary[i], i, ary)) {
+        result = ary[i]
+        break
       }
     }
     return result
@@ -367,7 +380,198 @@ var caixiaoweii = function () {
     return sum
   }
 
+  function forown(object, iteratee = _.identity) {
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var key in obj) {
+      if (hasOwn.call(obj, key)) {
+        if (NodeIterator(obj[key], key, obj) === false) {
+          break
+        }
+      }
+    }
+    return obj
+  }
 
+  function keys(object) {
+    let result = []
+    let hasOwn = Object.prototype.hasOwnProperty
+    for (let key in object) {
+      if (hasOwn.call(object, key)) {
+        result.push(key)
+      }
+    }
+    return result
+
+  }
+
+
+  function values(object) {
+    let result = []
+    let hasOwn = Object.prototype.hasOwnProperty
+    for (let key in object) {
+      if (hasOwn.call(object, key)) {
+        result.push(object[key])
+      }
+    }
+    return result
+  }
+
+  function groupBy(array, predicate = identity) {
+    var result = {}
+    for (var i = 0; i < array.length; i++) {
+      var key = predicate(array[i], i, array)
+      if (!Array.isArray(result[key])) {
+        result[key] = []
+      }
+      result[key].push(array[i])
+    }
+    return result
+  }
+
+
+  function identity(val) {
+    return val
+  }
+
+  function mapValues(obj, iteratee) {
+    var iteratee = baseIteratee(iteratee)
+    var result = {}
+    for (var key in obj) {
+      var val = obj[key]
+      result[key] = iteratee(val, key, obj)
+
+    }
+    return result
+  }
+
+
+  function mapKeys(obj, iteratee) {
+    var iteratee = baseIteratee(iteratee)
+    var result = {}
+    for (var key in obj) {
+      var val = obj[key]
+      result[iteratee(val, key, obj)] = val
+
+    }
+    return result
+  }
+
+  function tail(array) {
+    return array.slice(1)
+  }
+
+
+  function take(array, n = 1) {
+    var result = []
+    for (i = 0; i < array.length; i++) {
+      if (i < n) {
+
+        result.push(array[i])
+      }
+
+    }
+    return result
+  }
+
+  function nth(array, n = 0) {
+    if (n < 0) {
+      return array[array.length + n]
+    }
+    return array[n]
+  }
+
+  function pull(array, ...values) {
+    let result = []
+    let res = []
+    for (let i of values) {
+      res.push(i)
+    }
+    for (i = 0; i < array.length; i++) {
+      if (!res.includes(array[i])) {
+        result.push(array[i])
+      }
+    }
+    return result
+  }
+
+  function pullAll(array, values) {
+    let result = []
+    for (let i = 0; i < array.length; i++) {
+      if (!values.includes(array[i])) {
+        result.push(array[i])
+      }
+    }
+    return result
+  }
+
+
+  function pullAt(array, indexes) {
+    let pulled = []
+    let p = array
+    for (let i = 0; i < indexes.length; i++) {
+      pulled.push(array[indexes[i]])
+    }
+    return pulled
+  }
+
+  function sortedIndexBy(array, value, iteratee = identity) {
+
+  }
+
+  function sortedIndexOf(array, value) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === value) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  function sortedLastIndex(array, value) {
+    for (let i = array.length; i >= 0; i--) {
+      if (array[i] <= value) {
+        return i + 1
+      }
+    }
+    return 0
+  }
+
+  function sortedLastIndexOf(array, value) {
+    for (i = array.length - 1; i >= 0; i--) {
+      if (array[i] === value) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  function sortedUniq(array) {
+    let newarray = array.reduce(function (acc, cur) {
+      if (acc.indexOf(cur) === -1) {
+        acc.push(cur)
+      }
+      return acc
+    }, [])
+    return newarray
+  }
+
+  function takeRight(array, n = 1) {
+    if (n == 0) {
+      return []
+    }
+    return array.slice(-n)
+  }
+
+  function union(...arrays) {
+    let ary = [].concat(...arrays)
+    let result = []
+    ary.forEach(it => {
+      if (!result.includes(it)) {
+        result.push(it)
+      }
+    })
+    return result
+  }
 
   return {
     compact,
@@ -390,6 +594,7 @@ var caixiaoweii = function () {
     findIndex,
     findLastIndex,
     flattenDeep,
+    flattenDepth,
     toArray,
     filter,
     find,
@@ -400,6 +605,26 @@ var caixiaoweii = function () {
     sumBy,
     isEqual,
     flatten,
+    forown,
+    keys,
+    values,
+    groupBy,
+    identity,
+    mapValues,
+    mapKeys,
+    tail,
+    take,
+    nth,
+    pull,
+    pullAll,
+    pullAt,
+    sortedIndexOf,
+    sortedLastIndex,
+    sortedLastIndexOf,
+    sortedUniq,
+    takeRight,
+    union,
+
 
 
 
