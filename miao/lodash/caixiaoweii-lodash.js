@@ -573,6 +573,186 @@ var caixiaoweii = function () {
     return result
   }
 
+  function uniq(array) {
+    let newarray = array.reduce(function (acc, cur) {
+      if (acc.indexOf(cur) === -1) {
+        acc.push(cur)
+      }
+      return acc
+    }, [])
+    return newarray
+  }
+
+
+  function without(array, ...values) {
+    let result = []
+    let val = []
+    for (let i of values) {
+      val.push(i)
+    }
+    for (i = 0; i < array.length; i++) {
+      if (!(val.includes(array[i]))) {
+        result.push(array[i])
+      }
+    }
+    return result
+  }
+
+  function zipObject(props = [], values = []) {
+    let result = {}
+
+    for (let i = 0; i < props.length; i++) {
+      result[props[i]] = values[i]
+    }
+    return result
+
+  }
+
+  function isMatch(object, source) {
+    for (let key in source) {
+      if (source[key] && typeof source[key] == 'object') {
+        if (!isMatch(object[key], source[key])) {
+          return false
+        }
+      } else {
+        if (object[key] !== source[key]) {
+          return false
+        }
+      }
+
+    }
+    return true
+  }
+
+  function bind(func, thisArg, partials) {
+    return function (...args) {
+      var copy = partials.slice()
+      for (var i = 0; i < copy.length; i++) {
+        if (copy[i] === window) {
+          copy[i] = args.shift()
+        }
+      }
+      return func.call(thisArg, ...copy, ...args)
+    }
+  }
+
+  function matches(src) {
+    return bind(isMatch, null, window, src)
+  }
+
+  function property(path) {
+    return bind(get, null, window, path)
+  }
+
+  function concat(array, ...values) {
+    let res = array
+    for (let i = 0; i < values.length; i++) {
+      if (Array.isArray(values[i])) {
+        res.push(...values[i])
+      } else {
+        res.push(values[i])
+      }
+    }
+    return res
+  }
+
+  function isArray(value) {
+    return Object.prototype.toString.call(value) === '[object Array]'
+  }
+
+  function isBoolean(value) {
+    return Object.prototype.toString.call(value) === '[object Boolean]'
+  }
+
+  function isNumber(value) {
+    return Object.prototype.toString.call(value) === '[object Number]'
+  }
+
+  function isObject(value) {
+    return typeof values === 'object' && typeof value !== null || typeof value === 'function'
+  }
+
+  function isString(value) {
+    return Object.prototype.toString.call(value) === '[object String]'
+  }
+
+  function isSymbol(value) {
+    return Object.prototype.toString.call(value) === '[object Symbol]'
+  }
+
+  function isSet(value) {
+    return Object.prototype.toString.call(value) === '[object Set]'
+  }
+
+  function isUndefined(value) {
+    return Object.prototype.toString.call(value) === '[object Undefined]'
+  }
+
+  function isRegExp(value) {
+    return Object.prototype.toString.call(value) === '[object RegExp]'
+  }
+
+  function isNull(value) {
+    return Object.prototype.toString.call(value) === '[object Null]'
+  }
+
+
+  function isNil(value) {
+    return value === null || value === undefined
+  }
+
+  function isFunction(value) {
+    return Object.prototype.toString.call(value) === '[object Function]'
+  }
+
+  function isArguments(value) {
+    return Object.prototype.toString.call(value) === '[object Arguments]'
+
+  }
+
+  function difference(array, ...values) {
+    let val = []
+    let res = []
+
+    for (let i = 0; i < values.length; i++) {
+      val.push(...values[i])
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      if (!val.includes(array[i])) {
+        res.push(array[i])
+      }
+    }
+    return res
+  }
+
+  function differenceWith(array, values, comparator) {
+    let res = []
+    for (let a in array) {
+      for (let v in values) {
+        if (!(comparator(a, v))) {
+          res.push(ary)
+        }
+      }
+    }
+    return res
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return {
     compact,
     chunk,
@@ -624,7 +804,28 @@ var caixiaoweii = function () {
     sortedUniq,
     takeRight,
     union,
-
+    uniq,
+    without,
+    zipObject,
+    isMatch,
+    matches,
+    property,
+    concat,
+    isArray,
+    isBoolean,
+    isNumber,
+    isObject,
+    isString,
+    isSymbol,
+    isSet,
+    isUndefined,
+    isRegExp,
+    isNull,
+    isNil,
+    isFunction,
+    isArguments,
+    difference,
+    differenceWith,
 
 
 
