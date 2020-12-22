@@ -858,6 +858,57 @@ var caixiaoweii = function () {
     }
   }
 
+  function ary(f, n = func.length) {
+    return function (...args) {
+      return f(...args.slice(0, n))
+    }
+
+  }
+
+  function before(n, func) {
+    var c = 0
+    var result
+    return function (...args) {
+      if (c < n) {
+        return result = func.call(this, ...args)
+        c++
+      } else {
+        return result
+      }
+    }
+  }
+
+
+  function after(n, func) {
+    var c = 0
+    return function (...args) {
+      c++
+      if (c > n) {
+        return func.call(this, ...args)
+      }
+    }
+  }
+
+  function flip(func) {
+    return function (...args) {
+      return func(...args.reverse())
+    }
+  }
+
+  function negate(predicate) {
+    return function (...args) {
+      return !predicate(...args)
+    }
+  }
+
+
+  function spread(func, start = 0) {
+    return function (ary) {
+      return func.apply(this, ary)
+    }
+  }
+
+
 
 
 
@@ -954,6 +1005,12 @@ var caixiaoweii = function () {
     gte,
     repeat,
     includes,
+    ary,
+    before,
+    after,
+    flip,
+    negate,
+    spread,
 
 
 
