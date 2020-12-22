@@ -669,7 +669,7 @@ var caixiaoweii = function () {
   }
 
   function isObject(value) {
-    return typeof values === 'object' && typeof value !== null || typeof value === 'function'
+    return (typeof values === 'object' && typeof value !== null) || typeof value === 'function'
   }
 
   function isString(value) {
@@ -728,8 +728,8 @@ var caixiaoweii = function () {
 
   function differenceWith(array, values, comparator) {
     let res = []
-    for (let a in array) {
-      for (let v in values) {
+    for (let a of array) {
+      for (let v of values) {
         if (!(comparator(a, v))) {
           res.push(ary)
         }
@@ -738,8 +738,125 @@ var caixiaoweii = function () {
     return res
   }
 
+  function zip(...arrays) {
+    let res = []
+    for (let i = 0; i < arrays[0].length; i++) {
+      let mid = []
+      for (let j = 0; j < arrays.length; j++) {
+        mid.push(arrays[j][i])
+      }
+      res.push(mid)
+    }
+    return res
+  }
+
+  function unzip(...arrays) {
+    let res = []
+    for (let i = 0; i < arrays[0][0].length; i++) {
+      let mid = []
+      for (let j = 0; j < arrays[0].length; j++) {
+        mid.push(arrays[0][j][i])
+      }
+      res.push(mid)
+    }
+    return res
+
+  }
+
+  function forEach(collection, iteratee = identity) {
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        iteratee(collection[i], i, collection)
+      }
+    }
+
+    if (typeof collection == 'object') {
+      for (let k in collection) {
+        iteratee(collection[k], k, collection)
+      }
+    }
+    return collection
+  }
+
+  function flatMap(collection, iteratee = identity) {
+    let res = []
+    for (let i = 0; i < collection.length; i++) {
+      res = res.concat(iteratee(collection[i], i, collection))
+    }
+    return res
+  }
+
+  function flatMapDepth(collection, iteratee, depth = 1) {
+    let res = []
+    for (let i = 0; i < collection.length; i++) {
+      res.push(flattenDepth(iteratee(collection[i], i, collection), depth)
+    }
+    return res
+  }
+
+  function size(collection) {
+    let count = 0
+    if (Object.prototype.toString.call(collection) == '[object Array]' || typeof collection == 'String') {
+      return collection.length
+    } else {
+
+      for (let k in collection) {
+        count++
+      }
+    }
+    return count
+  }
+
+  function gt(value, other) {
+    return value > other
+  }
+
+  function gte(value, other) {
+    return value >= other
+  }
+
+  function repeat(string, n = 1) {
+    let str = ''
+    if (n == 0) {
+      return str
+    } else {
+      for (let i = 0; i < n; i++) {
+        str += string
+      }
+    }
+    return str
+  }
 
 
+  function includes(collection, value, fromIndex = 0) {
+    if (Object.prototype.toString.call(collection) == '[object Array]') {
+      for (let i = fromIndex; i < collection.length; i++) {
+        if (collection[i] === value) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
+
+    if (typeof collection == 'object') {
+      for (let k in collection) {
+        if (collection[k]) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
+    if (typeof collection == 'String') {
+      if (collection.indexOf(value) !== -1) {
+        return true
+      }
+      else {
+        return false
+      }
+    }
+  }
 
 
 
@@ -826,6 +943,17 @@ var caixiaoweii = function () {
     isArguments,
     difference,
     differenceWith,
+    bind,
+    zip,
+    unzip,
+    forEach,
+    flatMap,
+    flatMapDepth,
+    size,
+    gt,
+    gte,
+    repeat,
+    includes,
 
 
 
