@@ -786,13 +786,6 @@ var caixiaoweii = function () {
     return res
   }
 
-  function flatMapDepth(collection, iteratee, depth = 1) {
-    let res = []
-    for (let i = 0; i < collection.length; i++) {
-      res.push(flattenDepth(iteratee(collection[i], i, collection)), depth)
-    }
-    return res
-  }
 
 
   function size(collection) {
@@ -907,6 +900,15 @@ var caixiaoweii = function () {
     return function (ary) {
       return func.apply(this, ary)
     }
+  }
+
+
+  function flatMapDepth(collection, iteratee, depth = 1) {
+    let res = []
+    for (let i = 0; i < collection.length; i++) {
+      res.push(flattenDepth(iteratee(collection[i], i, collection)), depth)
+    }
+    return res
   }
 
 
