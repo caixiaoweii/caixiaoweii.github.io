@@ -789,10 +789,11 @@ var caixiaoweii = function () {
   function flatMapDepth(collection, iteratee, depth = 1) {
     let res = []
     for (let i = 0; i < collection.length; i++) {
-      res.push(flattenDepth(iteratee(collection[i], i, collection), depth)
+      res.push(flattenDepth(iteratee(collection[i], i, collection)), depth)
     }
     return res
   }
+
 
   function size(collection) {
     let count = 0
