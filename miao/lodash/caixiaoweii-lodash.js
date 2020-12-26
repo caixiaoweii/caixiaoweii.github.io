@@ -142,9 +142,8 @@ var caixiaoweii = function () {
       if (iteratee(array[i])) {
         return i
       }
-      return -1
     }
-
+    return -1
   }
   //减少一级array嵌套深度。
   function flatten(array) {
@@ -280,13 +279,12 @@ var caixiaoweii = function () {
 
 
   // 区别是它是从右到左的迭代集合array中的元素。
-  function findLastIndex(array, predicate, fromIndex) {
+  function findLastIndex(array, predicate, fromIndex = array.length - 1) {
     var iteratee = baseIteratee(predicate);
-    for (i = fromIndex; i >= 0; i--) {
+    for (let i = fromIndex; i >= 0; i--) {
       if (iteratee(array[i])) {
         return i
       }
-
     }
     return -1
   }
@@ -307,11 +305,10 @@ var caixiaoweii = function () {
 
   function filter(ary, predicate) {
     var iteratee = baseIteratee(predicate);
-    var result = undefined
+    var result = []
     for (i = 0; i < ary.length; i++) {
       if (iteratee(ary[i], i, ary)) {
         result = ary[i]
-        break
       }
     }
     return result
@@ -320,11 +317,14 @@ var caixiaoweii = function () {
 
   function find(ary, predicate, fromIndex = 0) {
     var iteratee = baseIteratee(predicate);
+    var res = undefined
     for (var i = 0; i < fromIndex; i++) {
       if (iteratee(ary[i], i, ary)) {
         return ary[i]
+        break
       }
     }
+    return res
   }
 
   function every(ary, predicate) {
@@ -669,7 +669,7 @@ var caixiaoweii = function () {
   }
 
   function isObject(value) {
-    return (typeof values === 'object' && typeof value !== null) || typeof value === 'function'
+    return (typeof values === 'object' && value !== null) || typeof value === 'function'
   }
 
   function isString(value) {
@@ -730,8 +730,8 @@ var caixiaoweii = function () {
     let res = []
     for (let a of array) {
       for (let v of values) {
-        if (!(comparator(a, v))) {
-          res.push(ary)
+        if (!comparator(a, v)) {
+          res.push(a)
         }
       }
     }
@@ -842,7 +842,7 @@ var caixiaoweii = function () {
         }
       }
     }
-    if (typeof collection == 'String') {
+    if (typeof collection == 'string') {
       if (collection.indexOf(value) !== -1) {
         return true
       }
@@ -906,12 +906,71 @@ var caixiaoweii = function () {
   function flatMapDepth(collection, iteratee, depth = 1) {
     let res = []
     for (let i = 0; i < collection.length; i++) {
-      res.push(flattenDepth(iteratee(collection[i], i, collection)), depth)
+      res.push(flattenDepth(iteratee(collection[i], i, collection), depth))
     }
     return res
   }
 
+  function intersection(...arrays) {
+    let res = arrays[0]
+    for (let i = 0; i < arrays.length; i++) {
+      res = res.filter(val => arrays[i].includes(val))
+    }
+    return res
+  }
 
+  function sortedIndexBy(array, value, iteratee) {
+    if (typeof iteratee == 'function') {
+      for (let i = 0; i < array.length; i++) {
+        if (iteratee(array[i]) === iteratee(value)) {
+          return i
+        }
+      }
+    }
+
+    if (typeof iteratee == 'string') {
+      for (let i = 0; i < array.length; i++) {
+        if (value[iteratee] === array[i][iteratee]) {
+          return i
+        }
+      }
+    }
+  }
+
+  function sortedLastIndexBy(array, value, iteratee) {
+    if (typeof iteratee == 'function') {
+      for (let i = array.length - 1; i >= 0; i--) {
+        if (iteratee(array[i]) >= iteratee(value)) {
+          return i
+        }
+      }
+    }
+
+    if (typeof iteratee == 'string') {
+      for (let i = array.length - 1; i >= 0; i--) {
+        if (value[iteratee] <= array[i][iteratee]) {
+          return i
+        }
+      }
+    }
+
+  }
+
+  function curry(func, arity = func.length) {
+    return function (...args) {
+      if (args.length < arity) {
+        return curry(func.bind(null, ...args), arity - args.length)
+      } else {
+        return func(...args)
+      }
+    }
+  }
+
+
+  function uniqBy(array, iteratee) {
+
+
+  }
 
 
 
@@ -1014,6 +1073,10 @@ var caixiaoweii = function () {
     flip,
     negate,
     spread,
+    intersection,
+    sortedIndexBy,
+    sortedLastIndexBy,
+    curry,
 
 
 
