@@ -669,7 +669,7 @@ var caixiaoweii = function () {
   }
 
   function isObject(value) {
-    return (typeof values === 'object' && value !== null) || typeof value === 'function'
+    return (typeof value === 'object' && value !== null) || typeof value === 'function'
   }
 
   function isString(value) {
@@ -968,9 +968,288 @@ var caixiaoweii = function () {
 
 
   function uniqBy(array, iteratee) {
+    let res = []
+    let map = new Map()
+    let iteratee = baseIteratee(predicate)
+    for (let i = 0; i < array.length; i++) {
+      if (!map.has(iteratee(array[i]))) {
+        map.set(iteratee(array[i]), true)
+        res.push(array[i])
+      }
+    }
+    return res
+  }
 
+  function sortedUniqBy(array, iteratee) {
+    let res = []
+    for (let i = 0; i < array.length; i++) {
+      if (iteratee(array[i]) === iteratee(array[i + 1])) {
+        res.push(array[i])
+      }
+    }
+    return res
+  }
+
+  function castArray(value) {
+    if (Array.isArray(value)) {
+      return value
+    } else {
+      let res = []
+      for (let i = 0; i < arguments.length; i++) {
+        res.push(arguments[i])
+      }
+      return res
+    }
+  }
+
+  function conformsTo(object, source) {
+    for (let key in source) {
+      return source[key](object[key])
+    }
+  }
+
+  function eq(value, other) {
+    if (value !== value && other !== other) return true
+    return value === other
+  }
+
+  function isArrayBuffer(value) {
+    return Object.prototype.toString.call(value) == "[object ArrayBuffer]"
+  }
+
+  function isArrayLike(value) {
+    if (typeof value !== 'function' && value.length >= 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  function isArrayLikeObject(value) {
+    return typeof value === 'object' && isArrayLike(value)
+  }
+
+  function isDate(value) {
+    return Object.prototype.toString.call(value) == '[object Date]'
+  }
+
+  function isElement(value) {
+    return !!(value && (value.nodeType == 1 || value.nodeType == 9));
+  }
+
+  function isEmpty(value) {
+    if (isArray(value)) {
+      return value.length === 0
+    }
+    if (typeof value == 'object') {
+      for (let key in value) {
+        return false
+      }
+      return true
+    }
 
   }
+
+  function isEqualWith(value, other, customizer) {
+    for (let i = 0; i < value.length; i++) {
+      if (customizer(value[i], other[i],) === false) {
+        return false
+      }
+    }
+    return true
+  }
+
+  function isError(value) {
+    return Object.prototype.toString.call(value) == '[object Error]'
+  }
+
+  function isFinite(value) {
+    return Number.isFinite(value)
+  }
+
+  function isInteger(value) {
+    return Number.isInteger(value)
+  }
+
+  function isLength(value) {
+    if (typeof value === 'number' && value > Number.MIN_VALUE && value !== Infinity) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  function isMap(value) {
+    return Object.prototype.toString.call(value) == '[object Map]'
+  }
+
+  function isMatchWith(object, source, customizer) {
+    for (let key in object) {
+      if (customizer(object[key], source[key]) === false) {
+        return false
+      }
+    }
+    return true
+  }
+
+  function isNaN(value) {
+    if (isObject(value)) {
+      return value.valueof() !== value.valueof()
+    }
+    return value !== value
+  }
+
+  function isNative(value) {
+    return (/\{\s*\[native code\]\s*\}/).test('' + value);
+  }
+
+  function isObjectLike(value) {
+    return typeof value == 'object' && value !== null
+  }
+
+  function isPlainObject(value) {
+    return value.__proto__ == Object.prototype || value.__proto__ == null
+  }
+
+  function isSafeInteger(value) {
+    return Number.isSafeInteger(value)
+  }
+
+  function isTypedArray(value) {
+    return Object.prototype.toString.call(value) == '[object Uint8Array]'
+  }
+
+  function isWeakMap(value) {
+    return Object.prototype.toString.call(value) == '[object WeakMap]'
+  }
+
+  function isWeakSet(value) {
+    return Object.prototype.toString.call(value) == '[object WeakSet]'
+  }
+
+  function lt(value, other) {
+    return value < other
+  }
+
+  function lte(value, other) {
+    return value <= other
+  }
+
+  function toFinite(value) {
+    if (value === Infinity) {
+      return Number.MAX_VALUE
+    }
+    if (value === -Infinity) {
+      return Number.MIN_VALUE
+    }
+    return Number(value)
+  }
+
+  function toInteger(value) {
+    if (value === Infinity) {
+      return Number.MAX_VALUE
+    }
+    if (value === -Infinity) {
+      return Number.MIN_VALUE
+    }
+    return (Number(value)) >> 0
+  }
+
+  function toLength(value) {
+    if (value >= Infinity) {
+      return 2 ** 32 - 1
+    }
+    if (value < -Infinity) {
+      return 0
+    }
+    return toInteger(value)
+  }
+
+  function toNumber(value) {
+    return Number(value)
+  }
+
+  function assign(object, ...sources) {
+    sources.forEach(key => {
+      Object.keys(key).forEach(obj => {
+        object[obj] = key[obj]
+      })
+    })
+    return object
+  }
+
+  function add(augend, addend) {
+    return augend + addend
+  }
+
+  function ceil(number, precision = 0) {
+    return Math.ceil(number * 10 ** precision) / 10 ** precision
+  }
+
+  function divide(dividend, divisor) {
+    return dividend / divisor
+  }
+
+  function floor(number, precision = 0) {
+    return Math.floor(number * 10 ** precision) / 10 ** precision
+  }
+
+  function mean(array) {
+    let sum = array.reduce(function (a, c) {
+      return a + c
+    }, 0)
+    return sum / array.length
+  }
+
+  function meanBy(array, iteratee = identity) {
+    iteratee = baseIteratee(iteratee)
+    let sum = array.reduce(function (a, c) {
+      return a + iteratee(c)
+    })
+    return sum / array.length
+  }
+
+  function multiply(multiplier, multiplicand) {
+    return multiplier * multiplicand
+  }
+
+  function round(number, precision = 0) {
+    return Math.round(number * 10 ** precision) / 10 ** precision
+  }
+
+  function subtract(minuend, subtrahend) {
+    return minuend - subtrahend
+  }
+
+  function clamp(number, lower, upper) {
+    if (number < lower) {
+      return lower
+    }
+    if (number > upper) {
+      return upper
+    }
+    return number
+  }
+
+  function inRange(number, start, end) {
+    if (end == undefined) {
+      let t = end
+      end = start
+      start = 0
+    }
+    if (start > end) {
+      let t = end
+      end = start
+      start = t
+    }
+    if (number >= start && number < end) {
+      return true
+    }
+    return false
+  }
+
+
+
 
 
 
@@ -1077,8 +1356,48 @@ var caixiaoweii = function () {
     sortedIndexBy,
     sortedLastIndexBy,
     curry,
-
-
+    uniqBy,
+    sortedUniqBy,
+    castArray,
+    conformsTo,
+    eq,
+    isArrayBuffer,
+    isArrayLike,
+    isArrayLikeObject,
+    isDate,
+    isElement,
+    isEmpty,
+    isEqualWith,
+    isFinite,
+    isInteger,
+    isLength,
+    isMap,
+    isMatchWith,
+    isNaN,
+    isNative,
+    isObjectLike,
+    isPlainObject,
+    isSafeInteger,
+    isTypedArray,
+    isWeakMap,
+    isWeakSet,
+    lt,
+    lte,
+    toFinite,
+    toInteger,
+    toLength,
+    toNumber,
+    assign,
+    ceil,
+    divide,
+    floor,
+    mean,
+    meanBy,
+    multiply,
+    round,
+    subtract,
+    clamp,
+    inRange,
 
 
 
