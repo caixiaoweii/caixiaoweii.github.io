@@ -967,7 +967,7 @@ var caixiaoweii = function () {
   }
 
 
-  function uniqBy(array, iteratee) {
+  function uniqBy(array, predicate) {
     let res = []
     let map = new Map()
     let iteratee = baseIteratee(predicate)
