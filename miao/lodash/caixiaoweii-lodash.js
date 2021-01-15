@@ -308,19 +308,19 @@ var caixiaoweii = function () {
     var result = []
     for (i = 0; i < ary.length; i++) {
       if (iteratee(ary[i], i, ary)) {
-        result = ary[i]
+        result.push(ary[i])
       }
     }
     return result
   }
 
 
-  function find(ary, predicate, fromIndex = 0) {
+  function find(ary, predicate) {
     var iteratee = baseIteratee(predicate);
     var res = undefined
-    for (var i = 0; i < fromIndex; i++) {
+    for (var i = 0; i < ary.length; i++) {
       if (iteratee(ary[i], i, ary)) {
-        return ary[i]
+        res = ary[i]
         break
       }
     }
@@ -1045,9 +1045,8 @@ var caixiaoweii = function () {
       for (let key in value) {
         return false
       }
-      return true
     }
-
+    return true
   }
 
   function isEqualWith(value, other, customizer) {
@@ -1093,7 +1092,7 @@ var caixiaoweii = function () {
   }
 
   function isNaN(value) {
-    if (isObject(value)) {
+    if (typeof value === "object") {
       return value.valueof() !== value.valueof()
     }
     return value !== value
@@ -1205,7 +1204,7 @@ var caixiaoweii = function () {
     iteratee = baseIteratee(iteratee)
     let sum = array.reduce(function (a, c) {
       return a + iteratee(c)
-    })
+    }, 0)
     return sum / array.length
   }
 
@@ -1249,8 +1248,164 @@ var caixiaoweii = function () {
   }
 
 
+  function toSafeInteger(value) {
+    if (value < -Infinity) {
+      return 0
+    }
+    if (value >= Infinity) {
+      return 2 ** 53 - 1
+    }
+    return Math.floor(value)
+  }
 
 
+  function assignIn(object, ...sources) {
+    sources.forEach(item => {
+      for (let key in item) {
+        object[key] = item[key]
+      }
+    })
+    return object
+  }
+
+  function toPath(value) {
+    return value.match(/\w+/g)
+  }
+
+  function get(object, path, defaultValue) {
+    if (typeof path == 'string') {
+      path = toPath(path)
+    }
+    for (let i = 0; i < path.length; i++) {
+      if (object == undefined) {
+        return defaultValue
+      }
+      object = object[path[i]]
+    }
+    if (object == undefined) {
+      return defaultValue
+    }
+    return object
+  }
+
+  function at(object, paths) {
+    return paths.map(function (item) {
+      return get(object, item)
+    })
+  }
+
+  function defaults(object, ...sources) {
+    let obj = {}
+    for (let source of sources) {
+      for (let key in source) {
+        obj[key] = source[key]
+      }
+    }
+    for (let i in object) {
+      obj[i] = object[i]
+    }
+    return obj
+  }
+
+  function pick(object, props) {
+    let res = {}
+    for (let item in object) {
+      if (props.includes(item)) {
+        res[item] = object[item]
+      }
+    }
+    return res
+  }
+
+  function defaultTo(value, defaultValue) {
+    if (typeof value == 'NaN' && typeof value == 'null' || typeof value == 'undefined') {
+      return defaultValue
+    }
+    return value
+  }
+
+  function words(string = '', pattern = /\w+/g) {
+    return string.match(pattern)
+  }
+
+  function split(string = '', separator, limit) {
+    let res = []
+
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] !== separator) {
+        res.push(string[i])
+      }
+    }
+    return res.slice(0, limit)
+  }
+
+  function omit(object, props) {
+    let res = {}
+    for (let item in object) {
+      if (!props.includes(item)) {
+        res[item] = object[item]
+      }
+    }
+    return res
+  }
+
+  function valuesIn(object) {
+    let res = []
+
+    for (let key in object) {
+      res.push(object[key])
+    }
+    return res
+  }
+
+  function replace(str, pattern, replacement) {
+    let arr = str.split(pattern)
+    let res = ''
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].length == 0) {
+        res += replacement
+      }
+      res += arr[i]
+    }
+    return res
+  }
+
+
+  function snakeCase(string = '') {
+    let rex = /[a-z]+|[A-Z][a-z]+|[A-Z]+/g
+    return string.match(rex).join("_").toLowerCase()
+
+  }
+
+  function startCase(string = "") {
+    let rex = /[a-z]+|[A-Z][a-z]+|[A-Z]+/g
+    let res = string.match(rex)
+    return res.map(it => it.replace(/^\w/, it => it.toUpperCase())).join(" ")
+  }
+
+  function startsWith(string = '', target, position = 0) {
+    for (let i = position; i < string.length; i++) {
+      if (string[position] === target) {
+        return true
+      }
+      return false
+    }
+
+  }
+
+  function toLower(string = '') {
+    return string.toLowerCase()
+  }
+
+  function toUpper(string = '') {
+    return string.toUpperCase()
+  }
+
+
+  function trim(string = '', chars = '\\s') {
+    let reg = new RegExp('[' + chars + ']+', 'g')
+    return string.replace(reg, '')
+  }
 
 
 
@@ -1398,7 +1553,27 @@ var caixiaoweii = function () {
     subtract,
     clamp,
     inRange,
-
+    add,
+    isError,
+    toSafeInteger,
+    assignIn,
+    toPath,
+    get,
+    at,
+    defaults,
+    pick,
+    defaultTo,
+    words,
+    split,
+    omit,
+    valuesIn,
+    replace,
+    snakeCase,
+    startCase,
+    startsWith,
+    toLower,
+    toUpper,
+    trim,
 
 
   }
