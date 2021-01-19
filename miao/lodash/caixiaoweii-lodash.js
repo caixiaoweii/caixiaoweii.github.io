@@ -1408,12 +1408,213 @@ var caixiaoweii = function () {
   }
 
 
+  function unary(func) {
+    return ary(func, 1)
+  }
 
 
+  function parseJson(str) {
+    var i = 0
 
+    return parseValue()
 
+    function parseValue() {
+      var char = str[i]
 
+      if (char == '[') {
+        return parseArray()
+      }
+      if (char == '{') {
+        return parseObject()
+      }
+      if (char == '"') {
+        return parseString()
+      }
 
+      if (char == 't') {
+        return parseTrue()
+      }
+      if (char == 'f') {
+        return parseFalse()
+      }
+      if (char == 'n') {
+        return parseNull()
+      }
+      return parseNumber()
+
+    }
+
+    function parseArray() {
+      var result = []
+      i++//skip [
+      while (str[i] != ']') {
+        if (str[i] == ',') {
+          i++ //skip ,
+        }
+        var value = parseValue() //parse a value from i
+        result.push(value)
+      }
+      i++
+      return result
+
+    }
+    function parseObject() {
+      var result = {}
+      i++ //skip '{'
+      while (str[i] != '}') {
+        if (str[i] == ',') {
+          i++
+        }
+        var key = parseString()
+        i++ //skip ':'
+        var value = parseValue()
+        result[key] = value
+      }
+      i++ //skip'}'
+      return result
+    }
+    function parseString() {
+      var result = ''
+      i++//skip first "
+      while (str[i] !== '"') {
+        result += str[i++]
+      }
+      i++ // skip second "
+      return result
+    }
+    function parseTrue() {
+      i += 4
+      return true
+    }
+    function parseFalse() {
+      i += 5
+      return false
+    }
+    function parseNull() {
+      i += 4
+      return null
+    }
+    function parseNumber() {
+      var numStr = ''
+      while (/[\de+\-.]/.test(str[i]) && str[i]) {
+        numStr += str[i++]
+      }
+      return parseFloat(numStr)
+    }
+  }
+
+  function defer(func, ...args) {
+    return setTimeout(func, 1, ...args) - 1;
+  }
+
+  function delay(func, wait, ...args) {
+    return setTimeout(() => {
+      func(...args)
+    }, 1);
+  }
+
+  function functions(object) {
+    let res = []
+    let arr = Object.keys(object)//返回Object的自身可枚举属性组成的数组
+    arr.forEach(it => {
+      if (isFunction(object[it])) {
+        res.push(it)
+      }
+    })
+    return res
+  }
+
+  function times(n, iteratee = identity) {
+    let res = []
+    for (let i = 0; i < n; i++) {
+      res.push(iteratee(i))
+    }
+    return res
+  }
+
+  function constant(value) {
+    return function () {
+      return value
+    }
+  }
+
+  function functionsIn(object) {
+    let res = []
+    for (let key in object) {
+      if (isFunction(object[key])) {
+        res.push(key)
+      }
+    }
+    return res
+  }
+
+  function capitalize(string = '') {
+    return string.toLowerCase().replace(/^\w/, it => it.toUpperCase())
+  }
+
+  function camelCase(string = '') {
+    var str = string.toLowerCase()
+    var arr = str.match(/[a-z]+/g)
+    let res = arr[0]
+    res += arr[1][0].toUpperCase()
+    for (let i = 1; i < arr[1].length; i++) {
+      res += arr[1][i]
+    }
+    return res
+  }
+
+  function endsWith(string = '', target, position = string.length) {
+    return string[position - 1] === target
+  }
+
+  function escape(string = '') {
+    return string.replace('&', '&amp;')
+      .replace('<', '&lt;')
+      .replace('>', '&gt;')
+      .replace('"', '&quot;')
+      .replace("'", "&apos;")
+      .replace("`", "&grave;")
+  }
+
+  function deburr(string = '') {
+    return string.replace('é', 'e')
+      .replace('à', 'a')
+  }
+
+  function escapeRegExp(string = '') {
+    return string.replace(/[\^\$\""\,\.\*\+\?\(\)\[\]\|]/g, '\\$&')
+  }
+
+  function kebabCase(string = '') {
+    let reg = /[a-z]+|[A-Z][a-z]+|[A-Z]+/g
+    return string.match(reg).join("-").toLowerCase()
+  }
+
+  function lowerCase(string = '') {
+    let reg = /[a-z]+|[A-Z][a-z]+|[A-Z]+/g
+    return string.match(reg).join(" ").toLowerCase()
+  }
+
+  function lowerFirst(string = '') {
+    return string.replace(/^\w/, function (it) {
+      return it.toLowerCase()
+    })
+  }
+
+  function parseInt(string, radix = 10) {
+    return Number.parseInt(string, radix)
+  }
+
+  function upperCase(string = '') {
+    let reg = /[a-z]+|[A-Z][a-z]+|[a-z]/g
+    return string.match(reg).join(' ').toUpperCase()
+  }
+
+  function upperFirst(string = '') {
+    return string.replace(/^\w/, function (it) {
+      return it.toUpperCase()
+    })
+  }
 
 
 
@@ -1574,6 +1775,26 @@ var caixiaoweii = function () {
     toLower,
     toUpper,
     trim,
+    unary,
+    parseJson,
+    defer,
+    delay,
+    constant,
+    functions,
+    times,
+    functionsIn,
+    capitalize,
+    camelCase,
+    endsWith,
+    escape,
+    deburr,
+    escapeRegExp,
+    kebabCase,
+    lowerCase,
+    lowerFirst,
+    parseInt,
+    upperCase,
+    upperFirst,
 
 
   }
